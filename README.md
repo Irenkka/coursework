@@ -8,3 +8,4 @@ Thisn repository contains the milestone projects that we worked on in our projct
 2. Cesar Cipher <br> This contains a keyed [encryption](milestone_2/encrypt.py) function and the reverse, [decryption](milestone_2/decrypt.py) function.
 3. [Pascal's Triangle](milestone_3/triangle.py) <br> This contains code that generates and then prints a Pascal triangle to the console of given depth.
 4. [Two Sum](milestone_4/find_sum.py) <br> This is two versions of an algorithm that find two indexes in an array who's entries sum to a given target.
+5. Employee Parser <br> This code is able to [generates fake](milestone_5/generate_data.py) entries of employee data using Faker and stores this into a csv file. It then [generates a report](milestone_5/report.py) of the given month listing who has company anniversaries and birthdays.
