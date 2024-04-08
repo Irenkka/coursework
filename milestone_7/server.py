@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, make_response
 import csv
 import sys
 from collections import defaultdict
@@ -38,33 +38,75 @@ def health_check():
 
 @app.route('/birthdays')
 def birthdays():
-    month = request.args.get('month')
-    department = request.args.get('department')
+    error = 0
+    try:
+        month = request.args.get('month')
+        assert(month != None)
+    except:
+        error = 1
+        error_message = "Missing 'month' parameter"
+        response = make_response(error_message, 400)
+    
+    try:
+        department = request.args.get('department')
+        assert(department != None)
+    except:
+        if error == 0:
+            error = 2
+            error_message = "Missing 'department' parameter"
+        else:
+            error_message = "Missing 'department' and 'month' parameter"
+            error == 3
+        response = make_response(error_message, 400)
 
-    filtered_employees = get_month_data("./milestone_5/database.csv", "birthday", month)
-    department_employees = filtered_employees[department]
+    if error != 0:
+        return response
+    else:
+        filtered_employees = get_month_data("./milestone_5/database.csv", "birthday", month)
+        department_employees = filtered_employees[department]
 
-    response = {
-        "total": len(department_employees),
-        "employees": department_employees
-    }
+        response = {
+            "total": len(department_employees),
+            "employees": department_employees
+        }
 
-    return jsonify(response)
+        return jsonify(response)
 
 @app.route('/anniversaries')
 def anniversaries():
-    month = request.args.get('month')
-    department = request.args.get('department')
+    error = 0
+    try:
+        month = request.args.get('month')
+        assert(month != None)
+    except:
+        error = 1
+        error_message = "Missing 'month' parameter"
+        response = make_response(error_message, 400)
+    
+    try:
+        department = request.args.get('department')
+        assert(department != None)
+    except:
+        if error == 0:
+            error = 2
+            error_message = "Missing 'department' parameter"
+        else:
+            error_message = "Missing 'department' and 'month' parameter"
+            error == 3
+        response = make_response(error_message, 400)
 
-    filtered_employees = get_month_data("./milestone_5/database.csv", "anniversary", month)
-    department_employees = filtered_employees[department]
+    if error != 0:
+        return response
+    else:
+        filtered_employees = get_month_data("./milestone_5/database.csv", "anniversary", month)
+        department_employees = filtered_employees[department]
 
-    response = {
-        "total": len(department_employees),
-        "employees": department_employees
-    }
+        response = {
+            "total": len(department_employees),
+            "employees": department_employees
+        }
 
-    return jsonify(response)
+        return jsonify(response)
 
 if __name__ == '__main__':
     app.run(debug=False)

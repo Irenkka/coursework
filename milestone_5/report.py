@@ -20,6 +20,14 @@ def filter_by_month(data, month, filter_type):
                 filtered_data[department].append(employee)
     return filtered_data
 
+def get_month_data(file_name, flag, month):
+    data = load_data(file_name)
+    if flag == 'anniversary':
+        res = filter_by_month(data, month, 'Hiring Date')
+    else:
+        res = filter_by_month(data, month, "Birthday")
+    return res
+
 def generate_report(data, title):
     print(title)
     total = sum(len(employees) for employees in data.values())
